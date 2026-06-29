@@ -29,15 +29,6 @@
           async src="//gc.zgo.at/count.js"></script>
   <!-- ======================================================================== -->
 
-  <!-- For a QR scan / browser: pause briefly so the scan is COUNTED, then redirect.
-       (An instant redirect would navigate away before the counter fires.) -->
-  <noscript><meta http-equiv="refresh" content="1; url=https://carnivorespotter.org/urban-carnivore-spotter/reports/create" /></noscript>
-  <script>
-    setTimeout(function () {
-      location.replace("https://carnivorespotter.org/urban-carnivore-spotter/reports/create");
-    }, 900); // ~0.9s is enough for the beacon to send; still feels instant
-  </script>
-
   <style>
     html,body{height:100%;margin:0}
     body{
@@ -45,14 +36,24 @@
       font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
       background:#2f3b2f;color:#f4f1e9;text-align:center;padding:24px
     }
-    a{color:#cda349}
+    main{max-width:22rem}
+    h1{font-size:1.5rem;margin:0 0 .25rem}
+    p.sub{color:#cdd3c5;margin:0 0 1.5rem}
+    a.btn{
+      display:inline-block;padding:.85rem 1.4rem;
+      background:#cda349;color:#2f3b2f;text-decoration:none;border-radius:.6rem;
+      font-weight:700;font-size:1.1rem
+    }
+    .hint{font-size:.85rem;color:#9aa492;margin-top:1.75rem}
   </style>
 </head>
 <body>
   <main>
-    <p>🐾 Opening the Carnivore Spotter report form…</p>
-    <p>If it doesn't open automatically,
-      <a href="https://carnivorespotter.org/urban-carnivore-spotter/reports/create">tap here to report a sighting</a>.
+    <h1>🐾 Carnivore Spotter</h1>
+    <p class="sub">Spotted a coyote, bobcat, bear or other carnivore? Log it for the Woodland Park Zoo / Seattle U research project.</p>
+    <a class="btn" href="https://carnivorespotter.org/urban-carnivore-spotter/reports/create">Report a sighting →</a>
+    <p class="hint">
+      Tip: tap <strong>Share&nbsp;⤴ → “Add to Home Screen”</strong> to save this for next time.
     </p>
   </main>
 </body>
