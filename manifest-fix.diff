@@ -1,0 +1,30 @@
+Fix: "Add to Home Screen" launches a 404
+
+The web app manifest sets start_url to "./index.html". Because the app is served
+under the base path /urban-carnivore-spotter and uses client-side routing, the
+launch URL resolves to /urban-carnivore-spotter/index.html — a path the router
+has no route for, so the installed PWA / iOS home-screen icon opens the app's
+"not found" page.
+
+Changing start_url to "." makes it resolve to the app root
+(/urban-carnivore-spotter/), which the router renders normally.
+
+--- a/public/manifest.json
++++ b/public/manifest.json
+@@ -8,7 +8,7 @@
+       "type": "image/x-icon"
+     }
+   ],
+-  "start_url": "./index.html",
++  "start_url": ".",
+   "display": "standalone",
+   "theme_color": "#000000",
+   "background_color": "#ffffff"
+ }
+
+Notes:
+- "." is resolved relative to the manifest URL
+  (/urban-carnivore-spotter/manifest.json), giving /urban-carnivore-spotter/.
+  "/urban-carnivore-spotter/" (absolute) also works and is more explicit.
+- To have the installed icon open the report form instead of the map, use
+  "start_url": "./reports/create".
