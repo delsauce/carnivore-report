@@ -54,6 +54,27 @@ A naive before/after would be fooled by two things:
 
 Pick target and control to be similar: comparable size, green space, and historical report volume, so the comparison is fair.
 
+### Study areas — LOCKED: Broadview (target) · Briarcliff (control)
+
+Chosen by matching historical coyote-report volume and, crucially, *parallel trends* (both neighborhoods spiked in summer 2022, then dropped to low single digits 2023–2025), from the July 2, 2026 data pull.
+
+| | Total coyote (all-time) | Coyote share | 2024 / 2025 annual | Summer coyote 22 / 23 / 24 / 25 |
+|---|---|---|---|---|
+| **Broadview** (target — flyers here) | 258 | 90% | 37 / 38 | 11 / 2 / 4 / 5 |
+| **Briarcliff** (control — no flyers) | 140 | 93% | 43 / 29 | 7 / 2 / 4 / 2 |
+
+**Why Briarcliff:**
+- Closest statistical match on the summer-window coyote counts (exact in 2024: 4 vs 4).
+- **Parallel trends hold** — both rose in 2022 and fell together after, which is what makes the diff-in-differences credible.
+- Same character: 90%+ coyote-dominant, green-space-adjacent NW Seattle residential (Broadview by Carkeek Park; Briarcliff by Discovery Park).
+- **Geographically separated (~4–5 mi, Salmon Bay/Ballard between)** → your flyers can't contaminate the control.
+
+**Rejected despite good numbers — adjacent to Broadview (contamination risk):** Haller Lake, North Beach, Crown Hill. **Backup control:** West Queen Anne (very flat summer counts 1/3/3/3, well-separated; weaker parallel-trends fit — no 2022 spike).
+
+**Caveats baked into this choice:**
+- Summer counts are small in *both* areas (single digits) → the reports comparison stays **pooled seasonal totals, exploratory**; **scans are the headline metric.**
+- The design assumes Broadview and Briarcliff *would have* stayed parallel this summer absent the flyers — state this plainly in the write-up.
+
 ---
 
 ## Data & tools (all pre-resolved — see Appendix)
@@ -98,7 +119,7 @@ Pick target and control to be similar: comparable size, green space, and histori
 
 **Week 0 — Setup (use the Appendix; most of this is pre-built)**
 - Lock the question and hypothesis; write the one-paragraph problem statement.
-- Choose target + control neighborhoods (similar profile); justify the pairing.
+- Study areas already chosen: **Broadview** (target) and **Briarcliff** (control) — see "Study areas — LOCKED" above.
 - Pull the dataset; compute baseline weekly report rates for both areas (2024, 2025, trailing 12 mo). *(Appendix A4.)*
 - Deploy the wrapper to GitHub Pages; add your GoatCounter code; test the QR on a phone. *(Appendix A2–A3.)*
 - Design + print the flyer (QR, one-line safety note, "logs to Woodland Park Zoo's project").
@@ -215,7 +236,7 @@ curl -s "https://us-central1-seattlecarnivores-edca2.cloudfunctions.net/getNeigh
 ```python
 import json, collections, datetime
 d = json.load(open("reports.json"))
-NB, SP = "Wedgwood", "Coyote"          # <-- set your target neighborhood / species
+NB, SP = "Broadview", "Coyote"         # target = Broadview; control = "Briarcliff" (re-run for each)
 weeks = collections.Counter()
 for r in d:
     x = r["data"]

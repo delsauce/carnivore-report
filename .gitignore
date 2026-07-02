@@ -1,2 +1,5 @@
 .DS_Store
 .venv/
+
+# large raw API snapshots (regenerable via getReports)
+data/*_raw_*.json
