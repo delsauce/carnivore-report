@@ -19,11 +19,21 @@
   <link rel="apple-touch-icon" href="icon-192.png" />
 
   <!-- ====== SCAN COUNTER ======================================================
-       Counts every scan/visit. Dashboard: https://delsauce.goatcounter.com/
-       GoatCounter is cookieless and collects no personal data.
+       Pings GoatCounter directly (no third-party gc.zgo.at loader — that domain
+       is on several ad-block lists and gets dropped, dropping the count with it).
+       Dashboard: https://delsauce.goatcounter.com/  (cookieless, no personal data)
   -->
-  <script data-goatcounter="https://delsauce.goatcounter.com/count"
-          async src="//gc.zgo.at/count.js"></script>
+  <script>
+    (function () {
+      try {
+        new Image().src = "https://delsauce.goatcounter.com/count"
+          + "?p=" + encodeURIComponent(location.pathname + location.search)
+          + "&t=" + encodeURIComponent(document.title)
+          + "&r=" + encodeURIComponent(document.referrer)
+          + "&rnd=" + Math.random().toString(36).slice(2);
+      } catch (e) {}
+    })();
+  </script>
   <!-- ======================================================================== -->
 
   <style>
