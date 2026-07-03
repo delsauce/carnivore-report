@@ -52,6 +52,7 @@
       font-weight:700;font-size:1.1rem
     }
     .hint{font-size:.85rem;color:#9aa492;margin-top:1.75rem}
+    .hint strong{color:#cdd3c5}
   </style>
 </head>
 <body>
@@ -59,9 +60,31 @@
     <h1>🐾 Carnivore Spotter</h1>
     <p class="sub">Spotted a coyote, bobcat, bear or other carnivore? Log it for the Woodland Park Zoo / Seattle U research project.</p>
     <a class="btn" href="https://carnivorespotter.org/urban-carnivore-spotter/reports/create">Report a sighting →</a>
-    <p class="hint">
-      Tip: tap <strong>Share&nbsp;⤴ → “Add to Home Screen”</strong> to save this for next time.
-    </p>
+    <!-- Add-to-Home-Screen tip. Default text (no-JS fallback) is refined per-platform below. -->
+    <p class="hint" id="a2hs">Save for next time: open your browser menu and choose <strong>“Add to Home Screen.”</strong></p>
   </main>
+
+  <script>
+    (function () {
+      var el = document.getElementById("a2hs");
+      if (!el) return;
+      // Already launched from a saved icon? No need to show the tip.
+      var standalone = (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches)
+                       || window.navigator.standalone === true;
+      if (standalone) { el.style.display = "none"; return; }
+
+      var ua = navigator.userAgent || "";
+      var isIOS = /iPhone|iPad|iPod/.test(ua)
+                  || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1); // iPadOS
+      var isAndroid = /Android/.test(ua);
+
+      if (isIOS) {
+        el.innerHTML = 'Save for next time: tap <strong>Share&nbsp;⤴</strong> at the bottom of Safari, then <strong>“Add to Home Screen.”</strong>';
+      } else if (isAndroid) {
+        el.innerHTML = 'Save for next time: tap <strong>⋮</strong> (top-right in Chrome), then <strong>“Add to Home screen.”</strong>';
+      }
+      // else: keep the generic menu wording for desktop/other browsers.
+    })();
+  </script>
 </body>
 </html>
